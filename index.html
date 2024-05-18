@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>축구선수 맞추기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d3aeae;
+        }
+        #quiz-container {
+            width: 600px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;ㄴ
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>축구선수 맞추기(난이도 하)</h1>
+        <img id="player-silhouette" src="player1.jpg" alt="축구선수 맞추기">
+            
+        <br>
+        <input type="text" id="answer-input" placeholder="선수 이름을 입력하시오.">
+        <button onclick="checkAnswer()">Submit Answer</button>
+        <p id="result-message"></p>
+    </div>
+    <script>
+        const playerImages = ['player1.jpg', 'player2.jpg', 'player3.jpg']; 
+        const correctAnswers = ['루카쿠', '그리즈만', '홀란드']; 
+        let currentQuestionIndex = 0;
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answer-input').value.trim();
+            const resultMessage = document.getElementById('result-message');
+
+            if (userAnswer.toLowerCase() === correctAnswers[currentQuestionIndex].toLowerCase()) {
+                resultMessage.textContent = '정답입니다~! 다음문제로 이동하겠습니다.';
+                setTimeout(nextQuestion, 2000); 
+            } else {
+                resultMessage.textContent = '틀렸어요!ㅠ 한 번더 생각해 보세요!';
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < playerImages.length) {
+                const playerSilhouette = document.getElementById('player-silhouette');
+                playerSilhouette.src = playerImages[currentQuestionIndex];
+                document.getElementById('answer-input').value = ''; // 이전 답안 지우기
+                document.getElementById('result-message').textContent = ''; // 결과 메시지 지우기
+            } else {
+                document.getElementById('quiz-container').innerHTML = '<h2>축하합니다! 당신은 축구에 미친 사람입니다!</h2>';
+            }
+        }
+    </script>
+</body>
+</html>
